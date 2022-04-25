@@ -68,12 +68,12 @@ jobs:
     - name: List my stuff
       run: ls -lAR
     - name: Import gpg key
-        id: import_gpg
-        uses: crazy-max/ghaction-import-gpg@v4
-        with:
-          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
-          passphrase: ${{ secrets.PASSPHRASE }}
-          fingerprint: "3E7E3C6EAF916676AC549285A2919382E961E2EE"
+      id: import_gpg
+      uses: crazy-max/ghaction-import-gpg@v4
+      with:
+        gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+        passphrase: ${{ secrets.PASSPHRASE }}
+        fingerprint: "3E7E3C6EAF916676AC549285A2919382E961E2EE"
     - name: Sign files and create checksums
       run: |
         for X in Rakudo-Star_artifacts/output/rakudo-star-* Rakudo-Star_artifacts/output/Windows/rakudo-star-* ; do
