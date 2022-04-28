@@ -77,14 +77,14 @@ jobs:
     - name: Sign files and create checksums
       run: |
         for X in Rakudo-Star_artifacts/output/rakudo-star-* Rakudo-Star_artifacts/output/Windows/rakudo-star-* ; do
-          gpg2 --no-tty --detach-sign --armor -u ${{ steps.import_gpg.outputs.fingerprint }} -- $X
+          gpg2 --batch --detach-sign --armor -u ${{ steps.import_gpg.outputs.fingerprint }} -- $X
           md5sum --tag ${X} >> ${X}.checksums.txt.unsigned
           sha1sum --tag ${X} >> ${X}.checksums.txt.unsigned
           sha224sum --tag ${X} >> ${X}.checksums.txt.unsigned
           sha256sum --tag ${X} >> ${X}.checksums.txt.unsigned
           sha384sum --tag ${X} >> ${X}.checksums.txt.unsigned
           sha512sum --tag ${X} >> ${X}.checksums.txt.unsigned
-          gpg2 --no-tty --clearsign --output ${X}.checksums.txt -u ${{ steps.import_gpg.outputs.fingerprint }} -- ${X}.checksums.txt.unsigned
+          gpg2 --batch --clearsign --output ${X}.checksums.txt -u ${{ steps.import_gpg.outputs.fingerprint }} -- ${X}.checksums.txt.unsigned
           rm ${X}.checksums.txt.unsigned
         done
     - name: Release Rakudo-Star Windows MSI and Linux RSTAR releases
